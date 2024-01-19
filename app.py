@@ -14,6 +14,7 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
+#fetching data from the page and predicting the crop
 @app.route("/predict",methods=['POST'])
 def predict():
     N = request.form['Nitrogen']
