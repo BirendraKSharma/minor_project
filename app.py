@@ -1,4 +1,6 @@
 from flask import Flask,request,render_template
+from flask_mysqldb import MySQL
+import yaml
 import numpy as np
 import pickle
 import pandas as pd
@@ -10,6 +12,15 @@ model_fertilizer = pickle.load(open('modelfertilizer_etc.pkl','rb'))  #for ferti
 # creating flask app
 app = Flask(__name__)
 
+#configuring the db
+db = yaml.safe_load(open('db.yaml'))
+app.config['MYSQL_HOST'] = db['mysql_host']
+app.config['MYSQL_USER'] = db['mysql_user']
+app.config['MYSQL_PASSWORD'] = db['mysql_password']
+app.config['MYSQL_DB'] = db['mysql_db']
+
+mysql = MySQL(app)
+
 @app.route('/')
 def index():
     return render_template("index.html")
@@ -17,6 +28,7 @@ def index():
 #fetching data from the page and predicting the crop
 @app.route("/predict",methods=['POST'])
 def predict():
+    name = request.form['name']
     N = request.form['Nitrogen']
     P = request.form['Phosporus']
     K = request.form['Potassium']
@@ -25,6 +37,12 @@ def predict():
     ph = request.form['Ph']
     rainfall = request.form['Rainfall']
     soil_color = request.form['Soil_color']
+    
+    #pushing the data into database
+    cur = mysql.connection.cursor()
+    cur.execute("INSERT INTO CROP(nitrogen, phosphor, potassium, temperature, humidity, ph, rainfall, soil_color, name, date) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, NOW())", (N, P, K, temp, humidity, ph, rainfall, soil_color, name))
+    mysql.connection.commit()
+    cur.close()
 
     feature_list = [N, P, K, temp, humidity, ph, rainfall]
     feature_list_fertilizer = [ soil_color,N, P, K,ph, rainfall,temp]
