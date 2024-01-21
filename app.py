@@ -1,9 +1,11 @@
-from flask import Flask,request,render_template
+from flask import Flask,request,render_template,redirect,session
 from flask_mysqldb import MySQL
 import yaml
 import numpy as np
 import pickle
 import pandas as pd
+from flask_bcrypt import Bcrypt
+import MySQLdb.cursors
 
 # importing model
 model = pickle.load(open('model.pkl','rb'))
@@ -11,8 +13,10 @@ model_fertilizer = pickle.load(open('modelfertilizer_etc.pkl','rb'))  #for ferti
 
 # creating flask app
 app = Flask(__name__)
+bcrypt = Bcrypt(app)  #for password hashing
 
 #configuring the db
+app.secret_key = 'abc123!@#'
 db = yaml.safe_load(open('db.yaml'))
 app.config['MYSQL_HOST'] = db['mysql_host']
 app.config['MYSQL_USER'] = db['mysql_user']
@@ -21,14 +25,76 @@ app.config['MYSQL_DB'] = db['mysql_db']
 
 mysql = MySQL(app)
 
+
+#login page
 @app.route('/')
+@app.route('/login',methods=['GET','POST'])
+def login():
+    message = ''
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        username = request.form['username']
+        password = request.form['password']
+        
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cur.execute('SELECT * FROM users WHERE username = %s ', (username,))
+        user = cur.fetchone()
+        
+        if user and bcrypt.check_password_hash(user['password'],password):
+            session['Loggedin'] = True
+            session['userID'] = user['userID']
+            session['username'] = user['username']
+            message = 'Logged in successfully'
+            return render_template('index.html',message=message)
+        else:
+            message = "incorrect username or password!!"
+            
+    return render_template('login.html',message=message)
+#log out 
+@app.route('/logout')
+def logout():
+    session.pop('Loggedin',None)
+    session.pop('userID',None)
+    session.pop('username',None)
+    return redirect('/login')
+
+#register page
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    message = ''
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        username = request.form['username']
+        password = request.form['password']
+
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cur.execute('SELECT * FROM users WHERE username = %s', (username,))
+        account = cur.fetchone()
+
+        if account:
+            message = 'Username already exists!'
+        elif not username or not password:
+            message = 'Please fill out the form!'
+        else:
+            hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')  #encrpyt the password
+            cur.execute('INSERT INTO users (username, password) VALUES (%s, %s)', (username, hashed_password))
+            mysql.connection.commit()
+            message = 'You have successfully registered!'
+    
+    elif request.method == 'POST':
+        message = 'Please fill out the form!'
+
+    return render_template('register.html', message=message)
+
+
+
 def index():
     return render_template("index.html")
+
+
 
 #fetching data from the page and predicting the crop
 @app.route("/predict",methods=['POST'])
 def predict():
-    name = request.form['name']
+    # name = request.form['name']
     N = request.form['Nitrogen']
     P = request.form['Phosporus']
     K = request.form['Potassium']
@@ -38,9 +104,15 @@ def predict():
     rainfall = request.form['Rainfall']
     soil_color = request.form['Soil_color']
     
+     # Fetching userID from the session
+    userID = session.get('userID', None)
+    
     #pushing the data into database
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO CROP(nitrogen, phosphor, potassium, temperature, humidity, ph, rainfall, soil_color, name, date) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, NOW())", (N, P, K, temp, humidity, ph, rainfall, soil_color, name))
+    cur.execute(
+        "INSERT INTO CROP(userID, nitrogen, phosphor, potassium, temperature, humidity, ph, rainfall, soil_color, date) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, NOW())",
+        (userID, N, P, K, temp, humidity, ph, rainfall, soil_color)
+    )
     mysql.connection.commit()
     cur.close()
 
