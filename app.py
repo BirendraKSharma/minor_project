@@ -89,6 +89,17 @@ def register():
 def index():
     return render_template("index.html")
 
+#display the result
+@app.route('/dashboard')
+def users():
+    cur = mysql.connection.cursor()
+    userID = session.get('userID', None)
+    
+    resultValue = cur.execute("SELECT users.userID, users.username, crop.date, crop.nitrogen FROM users JOIN crop ON users.userID = crop.userID WHERE users.userID = %s;",(userID,))
+    if resultValue > 0:
+        userDetails = cur.fetchall()
+        return render_template('dashboard.html',userDetails=userDetails)
+
 
 
 #fetching data from the page and predicting the crop
