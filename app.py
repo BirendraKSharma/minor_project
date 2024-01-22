@@ -95,7 +95,24 @@ def users():
     cur = mysql.connection.cursor()
     userID = session.get('userID', None)
     
-    resultValue = cur.execute("SELECT users.userID, users.username, crop.date, crop.nitrogen FROM users JOIN crop ON users.userID = crop.userID WHERE users.userID = %s;",(userID,))
+    #query to show data
+    query = """
+    SELECT
+        users.userID,
+        users.username,
+        crop_prediction.predicted_crop,
+        crop_prediction.predicted_fertilizer,
+        crop_prediction.date AS prediction_date
+    FROM
+        users
+    JOIN
+        crop ON users.userID = crop.userID
+    LEFT JOIN
+        crop_prediction ON users.userID = crop_prediction.userID
+    WHERE
+        users.userID = %s;
+"""
+    resultValue = cur.execute(query,(userID,))
     if resultValue > 0:
         userDetails = cur.fetchall()
         return render_template('dashboard.html',userDetails=userDetails)
@@ -157,6 +174,15 @@ def predict():
         result_1 = f"{fertilizer} is the best fertilizer to be used right there"
     else:
         result_1 = "Sorry, we could not determine the best fertilizer to be used with the provided data."
+    
+    #inserting predicated crop into db
+    cur = mysql.connection.cursor()
+    cur.execute(
+        "INSERT INTO crop_prediction (userID, predicted_crop, predicted_fertilizer, date) VALUES (%s, %s, %s, NOW())",
+        (userID, crop, fertilizer)
+    )
+    mysql.connection.commit()
+    cur.close()
     return render_template('index.html',result = result, result_1 = result_1)
 
 
