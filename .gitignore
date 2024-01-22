@@ -5,6 +5,8 @@ __pycache__/
 
 
 test.py
+requirements.txt
+
 db.yaml
 # C extensions
 *.so

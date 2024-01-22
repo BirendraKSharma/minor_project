@@ -1,8 +1,0 @@
-Flask
-Flask-MySQLdb
-Flask-Bcrypt
-numpy
-pandas
-scikit-learn
-mysqlclient
-gunicorn
