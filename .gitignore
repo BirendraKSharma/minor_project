@@ -10,7 +10,7 @@ requirements.txt
 db.yaml
 # C extensions
 *.so
-
+venv/
 # Distribution / packaging
 .Python
 build/
