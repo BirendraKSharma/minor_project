@@ -8,7 +8,7 @@ from flask_bcrypt import Bcrypt
 import MySQLdb.cursors
 
 # importing model
-model = pickle.load(open('model.pkl','rb'))
+model = pickle.load(open('new_model.pickle','rb'))
 model_fertilizer = pickle.load(open('modelfertilizer_etc.pkl','rb'))  #for fertilizer prediction
 
 # creating flask app
