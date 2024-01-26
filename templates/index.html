@@ -3,24 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="static/style.css">
     <title>crop recommendation</title>
 
   </head>
   <body>
     <div class="container">
-      <h1>crop recommendation</h1>
+      <h1>Crop Recommendation</h1>
       <form action="/predict" method="POST">
-        
-        <!-- <label for="Name">Enter your name:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Enter your name"
-          required
-        /> -->
-  
         <label for="Nitrogen">Nitrogen</label>
         <input
           type="number"
@@ -55,6 +45,8 @@
           id="Temperature"
           name="Temperature"
           placeholder="Enter Temperature in °C"
+          min="0"
+          max="60"
           required
         />
   
@@ -90,35 +82,32 @@
   
         <label for="Soil_color">Soil Color</label>
         <input
-          type="number"
-          step="0.01"
+          type="text"
+          list="browsers"
           id="Soil_color"
           name="Soil_color"
-          placeholder="Enter color of soil in number"
+          placeholder="Enter color of soil"
           required
-        />
+        /><datalist id="browsers">
+          <option value="Red">
+          <option value="Dark Brown">
+          <option value="Medium Brown">
+          <option value="Black">
+          <option value="Light Brown">
+        </datalist>
   
-        <button type="submit">Get Recommendation</button>
+        <button type="submit" class="recommendation_btn">Get Recommendation</button>
       </form>
-      <button>
-      <a href="/dashboard">Dashboard</a>
-      </button>
-  
-      <button>
-        <a href="/login">Log In</a>
-        </button>
-  
-        <button>
-          <a href="/register">Register Now!</a>
-          </button>
+
       {% if result %}
-    </div>
+    
+      <div class="output">
+        <h5>Recommend Crop for cultivation is:</h5>
+        <p>{{ result }}</p>
+        <h5>Recommend fertilizer for cultivation is:</h5>
+        <p>{{ result_1 }}</p>
+      </div>
+      {% endif %}
     <div>
-      <h5>Recommend Crop for cultivation is:</h5>
-      <p>{{ result }}</p>
-      <h5>Recommend fertilizer for cultivation is:</h5>
-      <p>{{ result_1 }}</p>
-    </div>
-    {% endif %}
   </body>
 </html>
