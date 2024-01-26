@@ -132,6 +132,20 @@ def predict():
     rainfall = request.form['Rainfall']
     soil_color = request.form['Soil_color']
     
+    #for soil color prediction
+    soil_col = {
+    'red': 0,
+    'dark brown': 1,
+    'medium brown': 2,
+    'reddish brown': 3, 
+    'black': 4, 
+    'light brown': 5,
+}
+    soil_color_lower = soil_color.lower()
+    if soil_color_lower in soil_col:
+        soil_color_num = soil_col[soil_color_lower]
+        
+    
      # Fetching userID from the session
     userID = session.get('userID', None)
     
@@ -145,7 +159,7 @@ def predict():
     cur.close()
 
     feature_list = [N, P, K, temp, humidity, ph, rainfall]
-    feature_list_fertilizer = [ soil_color,N, P, K,ph, rainfall,temp]
+    feature_list_fertilizer = [ soil_color_num,N, P, K,ph, rainfall,temp]
     single_pred = np.array(feature_list).reshape(1, -1)
     single_pred_fertilzer = np.array(feature_list_fertilizer).reshape(1, -1)
     
