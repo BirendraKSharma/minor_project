@@ -6,11 +6,12 @@ import pickle
 import pandas as pd
 from flask_bcrypt import Bcrypt
 import MySQLdb.cursors
+# this is my world
 
 # importing model
 model = pickle.load(open('new_model.pickle','rb'))   #for crop prediction
 model_fertilizer = pickle.load(open('modelfertilizer.pkl','rb'))  #for fertilizer prediction
-
+# hello world
 # creating flask app
 app = Flask(__name__)
 bcrypt = Bcrypt(app)  #for password hashing
@@ -190,3 +191,14 @@ def predict():
 # python main
 if __name__ == "__main__":
     app.run(debug=True)
+
+    #--------------------------------------------------git-------------------------------------------------------
+    # git branch:see branches
+    # git branch branch_name:create branch
+    # git checkout branch_name:switch to next branch
+    # git add.:add any changes to the branch
+    # git commit -m"messaage":commit changes
+    # git push origin branch_name:push to the branch origin
+    # git checkout next_branch_name:changes will not be seen
+
+  

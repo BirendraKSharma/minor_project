@@ -4,10 +4,26 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/styles.css">
+
     <title>crop recommendation</title>
 
   </head>
   <body>
+    <header>
+      <nav class="navigate">
+      <h2 class="logo">Crops Recommendation</h2>
+
+          <ul class="links">
+              <li><a href="/">home</a></li>
+              <li><a href="#">about</a></li>
+              <li><a href="#">contact</a></li>
+              <li><a href="#">services</a></li>
+          </ul>
+          <form action="/logout"><button class="login-btn">Logout</button></form>
+          
+      </nav>
+  </header>
     <div class="container">
       <h1>Crop Recommendation</h1>
       <form action="/predict" method="POST">
