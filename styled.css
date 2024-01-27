@@ -1,0 +1,131 @@
+*{
+    margin:0px;
+    padding:0px;
+    text-decoration:none;
+    list-style-type:none;
+    box-sizing:border-box;
+}
+/* body{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:url('background.jpg');
+} */
+nav{
+    /* background:#0082e6; */
+    height:86px;
+    width:100%;
+    background-color:transparent;
+    /* color:white; */
+}
+label.logo{
+    color:rgb(14, 3, 29);
+    font-size: 35px;
+    line-height:80px;
+    padding:0px 50px;
+    font-weight:bold;
+}
+nav ul{
+    float:right;
+    margin-right:10px;
+}
+nav ul li{
+    display:inline-block;
+    line-height:80px;
+    /* this makes the texts to be at the center of the nav height */
+    margin:0px 5px;
+}
+nav ul li a{
+    color:rgb(255, 255, 255);
+    font-size:17px;
+    padding:7px 13px;
+    border-radius:9px;
+}
+a.active,a:hover{
+    background:#1b9bff;
+    transition:0.5s;
+}
+.checkbtn{
+    font-size:30px;
+    color:#fff;
+    float:right;
+    line-height:80px;
+    margin-right:40px;
+    cursor:pointer;
+    display:none;
+}
+#check{
+    display:none;
+}
+/* nav ul .login-popup{
+    width:130px;
+    height:50px;
+    background:transparent;
+    border:2px solid #fff;
+    outline:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:1.1em;
+    transition:0.5s;
+    color:#fff;
+} */
+@media (max-width:952px){
+   label.logo{
+    font-size:30px;
+    padding-left:50px;
+    text-align:center;
+   }
+   nav ul li a{
+    font-size:16px;
+   }
+}
+@media (max-width:858px){
+    .checkbtn{
+        display:block;
+        
+    }
+    ul{
+        position:fixed;
+        width:100%;
+        height:100vh;
+        background:#2c3e50;
+        top:80px;
+        left:-100%;
+        /* the unordered list will be shifted out of page and will not be seen */
+        text-align:center;
+        transition:all 0.5s;
+        z-index:10000;
+        /* z-index:100; */
+    }
+    label.logo{
+        font-size:25px;
+        /* padding-left:20px; */
+        padding:5px;
+        text-align: center;
+        line-height:70px;
+       }
+    nav ul li{
+        display:block;
+    }
+    nav ul li a{
+        font-size:20px;
+    }
+    a:hover,a.active{
+        background:none;
+        color:#0082e6;
+    }
+    #check:checked~ul{
+        left:0;
+        /* when the check button is checked the unordered list will be appeared */
+    }
+    
+
+}
+
+.logout {
+    width: 80px; /* Adjust width as needed */
+    height: 30px; /* Adjust height as needed */
+    /* Add any other styles you want for the logout button */
+    /* align-items:center;
+     */
+    padding-bottom:30px;
+}
+/* inspect and check which css are affecting the items */

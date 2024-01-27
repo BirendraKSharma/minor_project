@@ -6,7 +6,7 @@
 
 }
 body{
-    height:100vh;
+    height:60vh;
     width:100%;
     background:url('green.jpg');
     background-size:cover;
@@ -30,7 +30,8 @@ header{
     max-width:1200px;
     margin:0 2px;
     /* justify-content:space-between; */
-    padding:22px 0px;
+    padding:12px 0px;
+    /* justify-content:space-between; */
 }
 .navigate .links{
     display:flex;
@@ -38,11 +39,11 @@ header{
     list-style-type:none;
     text-decoration:none;
     gap:35px;
-    margin:0px 10%;
+    margin:0px 20%;
 }
 .navigate .links a{
     text-decoration:none;
-    font-size:1.1rem;
+    font-size:1.2rem;
     color:#0400d4;
 }
 .navigate .login-btn{
@@ -56,6 +57,7 @@ header{
      border-radius:3px;
      background:#fff;
 }
+
 /* .blur-back{
     position:fixed;
     top:0;
@@ -123,7 +125,7 @@ form .input-field{
     height:50px;
     width:100%;
     margin-top:20px;
-    position:relative;
+    /* position:relative; */
 }
 form .input-field input{
     width:100%;
@@ -241,3 +243,23 @@ form button:hover{
     width:1600px;
     background-position:center;
  } */
+ .navigate .form{
+    margin-left:100px;
+ }
+ 
+ @media (max-width:952px){
+    .popup-form{
+       
+        margin-top: 180px;
+        margin-left: 0px;
+        background:#fff;
+        
+        border:2px solid #fff;
+        max-width:720px;
+        width:100%;
+        box-shadow: 10px 5px 10px rgba(0, 0.4, 0.4, 0.4);
+       
+        pointer-events:none;
+    
+    }
+ }
