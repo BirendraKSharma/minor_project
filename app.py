@@ -120,9 +120,9 @@ def users():
 
 
 #fetching data from the page and predicting the crop
+
 @app.route("/predict",methods=['POST'])
 def predict():
-    # name = request.form['name']
     N = request.form['Nitrogen']
     P = request.form['Phosporus']
     K = request.form['Potassium']
@@ -131,25 +131,21 @@ def predict():
     ph = request.form['Ph']
     rainfall = request.form['Rainfall']
     soil_color = request.form['Soil_color']
-    
-    #for soil color prediction
+
     soil_col = {
-    'red': 0,
-    'dark brown': 1,
-    'medium brown': 2,
-    'reddish brown': 3, 
-    'black': 4, 
-    'light brown': 5,
-}
+        'red': 0,
+        'dark brown': 1,
+        'medium brown': 2,
+        'reddish brown': 3, 
+        'black': 4, 
+        'light brown': 5,
+    }
     soil_color_lower = soil_color.lower()
     if soil_color_lower in soil_col:
         soil_color_num = soil_col[soil_color_lower]
-        
-    
-     # Fetching userID from the session
+
     userID = session.get('userID', None)
-    
-    #pushing the data into database
+
     cur = mysql.connection.cursor()
     cur.execute(
         "INSERT INTO CROP(userID, nitrogen, phosphor, potassium, temperature, humidity, ph, rainfall, soil_color, date) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, NOW())",
@@ -158,46 +154,53 @@ def predict():
     mysql.connection.commit()
     cur.close()
 
-    feature_list = [N, P, K, temp, humidity, ph, rainfall]
-    feature_list_fertilizer = [ soil_color_num,N, P, K,ph, rainfall,temp]
-    single_pred = np.array(feature_list).reshape(1, -1)
-    single_pred_fertilzer = np.array(feature_list_fertilizer).reshape(1, -1)
-    
-    prediction = model.predict(single_pred)
-    prediction_fertilizer = model_fertilizer.predict(single_pred_fertilzer)
-    
-    crop_dict = {0: 'apple', 1: 'banana', 2: 'blackgram', 3: 'chickpea', 4: 'coconut', 5: 'coffee', 
-                 6: 'cotton', 7: 'grapes', 8: 'jute', 9: 'kidneybeans', 10: 'lentil', 11: 'maize', 
-                 12: 'mango', 13: 'mothbeans', 14: 'mungbean', 15: 'muskmelon', 16: 'orange',
-                 17: 'papaya', 18: 'pigeonpeas', 19: 'pomegranate', 20: 'rice', 21: 'watermelon'}    
-    fertilizer_dict = {0: 'Ferrous Sulphate', 1: 'Ammonium Sulphate', 2: 'SSP', 3: 'MOP', 4: 'DAP', 5: 'Sulphur', 
-             6: 'Urea', 7: '10:10:10 NPK', 8: 'Hydrated Lime', 9: '10:26:26 NPK', 10: '50:26:26 NPK', 11: '18:46:00 NPK', 
-             12: '19:19:19 NPK', 13: '12:32:16 NPK', 14: 'Magnesium Sulphate', 15: 'White Potash', 
-             16: 'Chilated Micronutrient', 17: '13:32:26 NPK', 18: '20:20:20 NPK'
-            }
+    crop_result = predict_crop(N, P, K, temp, humidity, ph, rainfall)
+    fertilizer_result = predict_fertilizer(soil_color_num, N, P, K, ph, rainfall, temp)
 
-    if prediction[0] in crop_dict:
-        crop = crop_dict[prediction[0]]
-        result = f"{crop} is the best crop to be cultivated right there"
-    else:
-        result = "Sorry, we could not determine the best crop to be cultivated with the provided data."
-
-    if prediction_fertilizer[0] in fertilizer_dict:
-        fertilizer = fertilizer_dict[prediction_fertilizer[0]]
-        result_1 = f"{fertilizer} is the best fertilizer to be used right there"
-    else:
-        result_1 = "Sorry, we could not determine the best fertilizer to be used with the provided data."
-    
-    #inserting predicated crop into db
     cur = mysql.connection.cursor()
     cur.execute(
         "INSERT INTO crop_prediction (userID, predicted_crop, predicted_fertilizer, date) VALUES (%s, %s, %s, NOW())",
-        (userID, crop, fertilizer)
+        (userID, crop_result, fertilizer_result)
     )
     mysql.connection.commit()
     cur.close()
-    return render_template('index.html',result = result, result_1 = result_1)
 
+    action = request.form.get('action')
+    if action == 'crop':
+        # crop_result = predict_crop(N, P, K, temp, humidity, ph, rainfall)
+        return render_template('index.html', crop_result=crop_result)
+    elif action == 'fertilizer':
+        # fertilizer_result = predict_fertilizer(soil_color_num, N, P, K, ph, rainfall, temp)
+        return render_template('index.html', fertilizer_result=fertilizer_result)
+    else:
+        return render_template('index.html', error="Please select an action (Crop or Fertilizer)")
+
+
+def predict_crop(N, P, K, temp, humidity, ph, rainfall):
+    feature_list = [N, P, K, temp, humidity, ph, rainfall]
+    single_pred = np.array(feature_list).reshape(1, -1)
+    prediction = model.predict(single_pred)
+    crop_dict = {0: 'apple', 1: 'banana', 2: 'blackgram', 3: 'chickpea', 4: 'coconut', 5: 'coffee', 
+                 6: 'cotton', 7: 'grapes', 8: 'jute', 9: 'kidneybeans', 10: 'lentil', 11: 'maize', 
+                 12: 'mango', 13: 'mothbeans', 14: 'mungbean', 15: 'muskmelon', 16: 'orange',
+                 17: 'papaya', 18: 'pigeonpeas', 19: 'pomegranate', 20: 'rice', 21: 'watermelon'}
+    if prediction[0] in crop_dict:
+        return crop_dict[prediction[0]]
+    else:
+        return "Sorry, we could not determine the best crop to be cultivated with the provided data."
+
+def predict_fertilizer(soil_color_num, N, P, K, ph, rainfall, temp):
+    feature_list_fertilizer = [soil_color_num, N, P, K, ph, rainfall, temp]
+    single_pred_fertilzer = np.array(feature_list_fertilizer).reshape(1, -1)
+    prediction_fertilizer = model_fertilizer.predict(single_pred_fertilzer)
+    fertilizer_dict = {0: 'Ferrous Sulphate', 1: 'Ammonium Sulphate', 2: 'SSP', 3: 'MOP', 4: 'DAP', 5: 'Sulphur', 
+             6: 'Urea', 7: '10:10:10 NPK', 8: 'Hydrated Lime', 9: '10:26:26 NPK', 10: '50:26:26 NPK', 11: '18:46:00 NPK', 
+             12: '19:19:19 NPK', 13: '12:32:16 NPK', 14: 'Magnesium Sulphate', 15: 'White Potash', 
+             16: 'Chilated Micronutrient', 17: '13:32:26 NPK', 18: '20:20:20 NPK'}
+    if prediction_fertilizer[0] in fertilizer_dict:
+        return fertilizer_dict[prediction_fertilizer[0]]
+    else:
+        return "Sorry, we could not determine the best fertilizer to be used with the provided data."
 
 
 

@@ -96,16 +96,27 @@
           <option value="Light Brown">
         </datalist>
   
-        <button type="submit" class="recommendation_btn">Get Recommendation</button>
+        <button type="submit" name="action" value="crop">Get Crop Recommendation</button>
+        <button type="submit" name="action" value="fertilizer">Get Fertilizer Recommendation</button>
       </form>
 
-      {% if result %}
-    
+      {% if crop_result %}
       <div class="output">
         <h5>Recommend Crop for cultivation is:</h5>
-        <p>{{ result }}</p>
+        <p>{{ crop_result }}</p>
+      </div>
+      {% endif %}
+
+      {% if fertilizer_result %}
+      <div class="output">
         <h5>Recommend fertilizer for cultivation is:</h5>
-        <p>{{ result_1 }}</p>
+        <p>{{ fertilizer_result }}</p>
+      </div>
+      {% endif %}
+
+      {% if error %}
+      <div class="error">
+        <p>{{ error }}</p>
       </div>
       {% endif %}
     <div>
