@@ -52,7 +52,7 @@ input[type="text"] {
 }
 
 
-.recommendation_btn {
+.crop_btn, .fertilizer_btn {
   width: 40%;
   display: block;
   background-color: #4CAF50;
