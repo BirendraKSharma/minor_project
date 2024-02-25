@@ -146,16 +146,25 @@ checkbtn.addEventListener('click',()=>{
       </form>
       </form>
 
-      {% if result %}
-    
+      {% if crop_result %}
       <div class="output">
         <h5>Recommend Crop for cultivation is:</h5>
         <p>{{ crop_result }}</p>
+      </div>
+      {% endif %}
+
+      {% if fertilizer_result %}
+      <div class="output">
         <h5>Recommend fertilizer for cultivation is:</h5>
         <p>{{ fertilizer_result }}</p>
       </div>
       {% endif %}
-      
-    </div>
+
+      {% if error %}
+      <div class="error">
+        <p>{{ error }}</p>
+      </div>
+      {% endif %}
+    
   </body>
 </html>
