@@ -58,6 +58,42 @@ def logout():
     session.pop('username',None)
     return redirect('/login')
 
+#forget password
+@app.route('/forget_password' , methods=['GET' ,'POST'])
+def forget_password():
+   
+    return render_template('forget_password.html')
+
+
+#updating the password
+@app.route('/update_password' , methods =['GET','POST'])
+def redirectTolog():
+    username = request.form.get('username')
+    new_password = request.form.get('new_password')
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    if not new_password:
+        # Handle the case where the password is empty, e.g., show an error message to the user.
+        return "Password cannot be empty."
+
+    hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+
+    # Update password in the database
+    update_query = "UPDATE users SET password = %s WHERE username = %s"
+    cur.execute(update_query, (hashed_password, username))
+    mysql.connection.commit()
+
+    # Check if any rows were affected by the update
+    if cur.rowcount > 0:
+        message = 'Password updated successfully'
+    else:
+        message = 'No user found with the specified username'
+
+    cur.close()  # Close the cursor
+
+    return render_template('login.html', message=message)
+
+
 #register page
 @app.route('/register', methods=['GET', 'POST'])
 def register():
