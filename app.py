@@ -98,19 +98,27 @@ def users():
     #query to show data
     query = """
     SELECT
-        users.userID,
-        users.username,
-        crop_prediction.predicted_crop,
-        crop_prediction.predicted_fertilizer,
-        crop_prediction.date AS prediction_date
-    FROM
-        users
-    JOIN
-        crop ON users.userID = crop.userID
-    LEFT JOIN
-        crop_prediction ON users.userID = crop_prediction.userID
-    WHERE
-        users.userID = %s;
+    users.userID,
+    users.username,
+    crop_prediction.predicted_crop,
+    crop_prediction.predicted_fertilizer,
+    MAX(crop_prediction.date) AS prediction_date
+FROM
+    users
+JOIN
+    crop ON users.userID = crop.userID
+LEFT JOIN
+    crop_prediction ON users.userID = crop_prediction.userID
+WHERE
+    users.userID = %s
+GROUP BY
+    users.userID,
+    users.username,
+    crop_prediction.predicted_crop,
+    crop_prediction.predicted_fertilizer
+ORDER BY
+    prediction_date DESC;
+
 """
     resultValue = cur.execute(query,(userID,))
     if resultValue > 0:
@@ -154,27 +162,32 @@ def predict():
     mysql.connection.commit()
     cur.close()
 
-    crop_result = predict_crop(N, P, K, temp, humidity, ph, rainfall)
-    fertilizer_result = predict_fertilizer(soil_color_num, N, P, K, ph, rainfall, temp)
-
     cur = mysql.connection.cursor()
-    cur.execute(
-        "INSERT INTO crop_prediction (userID, predicted_crop, predicted_fertilizer, date) VALUES (%s, %s, %s, NOW())",
-        (userID, crop_result, fertilizer_result)
-    )
-    mysql.connection.commit()
-    cur.close()
+    
 
     action = request.form.get('action')
     if action == 'crop':
-        # crop_result = predict_crop(N, P, K, temp, humidity, ph, rainfall)
+        crop_result = predict_crop(N, P, K, temp, humidity, ph, rainfall)
+        cur.execute(
+        "INSERT INTO crop_prediction (userID, predicted_crop, date) VALUES (%s, %s, NOW())",
+        (userID, crop_result,)
+        )
+        mysql.connection.commit()
+    
         return render_template('index.html', crop_result=crop_result)
     elif action == 'fertilizer':
-        # fertilizer_result = predict_fertilizer(soil_color_num, N, P, K, ph, rainfall, temp)
+        fertilizer_result = predict_fertilizer(soil_color_num, N, P, K, ph, rainfall, temp)
+        cur.execute(
+        "INSERT INTO crop_prediction (userID, predicted_fertilizer, date) VALUES (%s, %s, NOW())",
+        (userID, fertilizer_result)
+        )
+        mysql.connection.commit()
+    
         return render_template('index.html', fertilizer_result=fertilizer_result)
     else:
         return render_template('index.html', error="Please select an action (Crop or Fertilizer)")
-
+    
+    cur.close()
 
 def predict_crop(N, P, K, temp, humidity, ph, rainfall):
     feature_list = [N, P, K, temp, humidity, ph, rainfall]
