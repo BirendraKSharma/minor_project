@@ -9,7 +9,7 @@ import MySQLdb.cursors
 
 # importing model
 model = pickle.load(open('crop.pickle','rb'))   #for crop prediction
-model_fertilizer = pickle.load(open('modelfertilizer.pkl','rb'))  #for fertilizer prediction
+model_fertilizer = pickle.load(open('fertilizer.pkl','rb'))  #for fertilizer prediction
 
 # creating flask app
 app = Flask(__name__)
