@@ -3,11 +3,44 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/styled.css">
+
     <title>crop recommendation</title>
 
   </head>
   <body>
+    <!-- <header>
+      <nav class="navigate">
+      <h2 class="logo">Crops Recommendation</h2>
+
+          <ul class="links">
+              <li><a href="/">home</a></li>
+              <li><a href="#">about</a></li>
+              <li><a href="#">contact</a></li>
+              
+          </ul>
+          <div class="form"><form action="/logout"><button class="login-btn">Logout</button></form></div>
+          </nav>
+  </header> -->
+  <header>
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fas fa-bars"></i>     
+        </label>
+        <label class="logo">Crops Recommendation System</label>
+        <ul>
+            <li> <a href="/">home</a></li>
+            <li> <a href="#">about</a></li>
+            <li> <a href="#">contact</a></li>
+           <li><form action="/logout"><button class="logout">logout</button></form></li> 
+            <!-- <button class="login-popup">Login</button> -->
+        </ul>
+       
+    </nav>
+</header>
     <div class="container">
       <h1>Crop Recommendation</h1>
       <form action="/predict" method="POST">
@@ -119,6 +152,6 @@
         <p>{{ error }}</p>
       </div>
       {% endif %}
-    <div>
+    
   </body>
 </html>

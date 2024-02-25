@@ -5,9 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="\static\style.css">
+    <link rel="stylesheet" href="\static\styles.css">
+    <script src="\static\script.js" defer></script>
+    <link rel="stylesheet" href="\static\style1.css">
+    <link rel="stylesheet" href="\static\styled.css">
+
+    <script src="https://kit.fontawesome.com/f2ae13f1ba.js" crossorigin="anonymous"></script>
+<style>
+    .login-btn{
+        width:200px;
+    }
+    h2{
+        color:black;
+    }
+    p{
+        color:#0400d4;
+    }
+    .button-link{
+        display:flex;
+        
+    }
+    .button-link a{
+        margin-left:10px;
+    }
+</style>
 </head>
 <body>
-    <h2>Login</h2>
+    <!-- <h2>Login</h2>
     {% if message %}
         <p>{{ message }}</p>
     {% endif %}
@@ -20,6 +45,80 @@
         <br>
         <button type="submit">Login</button>
     </form>
-    <p>Don't have an account? <a href="/register">Register here</a></p>
+    <p>Don't have an account? <a href="/register">Register here</a></p> -->
+    <!-- <div class="yellow"> -->
+        <!-- <header>
+            <nav class="navigate">
+            <h2 class="logo">Crops Recommendation</h2>
+    
+                <ul class="links">
+                    <li><a href="/">home</a></li>
+                    <li><a href="#">about</a></li>
+                    <li><a href="#">contact</a></li>
+                    
+                </ul>
+              
+            </nav>
+        </header> -->
+        <header>
+            <nav>
+                <input type="checkbox" id="check">
+                <label for="check" class="checkbtn">
+                    <i class="fas fa-bars"></i>     
+                </label>
+                <label class="logo">Crops Recommendation System</label>
+                <ul>
+                    <li> <a href="/">home</a></li>
+                    <li> <a href="#">about</a></li>
+                    <li> <a href="#">contact</a></li>
+                    <li> <a href="#">services</a></li>
+                    <!-- <button class="login-popup">Login</button> -->
+                </ul>
+               
+            </nav>
+        </header>
+
+        <!-- <header>
+            <div class="logo">Crops</div>
+            <ul class="menu">
+                <li>home</li>
+                <li>blog</li>
+                <li>about</li>
+                <li>contact</li>
+    
+            </ul> -->
+            <!-- <form action="/login" method="POST"><button class="login-btn">SERVICE</button></form> -->
+        <!-- </header> -->
+        
+        <!-- <div class="blur-back"></div>
+        <div class="red">
+            {% if message %}
+            <p>{{message}}</p>
+            {% endif %}
+        </div> -->
+        <div class="popup-form">
+            <!-- <span class=" close-btn material-symbols-rounded"><i class="fa-solid fa-xmark"></i></span> -->
+            <div class="formbox login">
+                <div class="form-detail">
+                  
+                </div>
+                <div class="form-content">
+                    <form method="POST" action="/login">
+                        <h2>LOGIN</h2>
+                        <div class="input-field"><input type="text" name="username" required></div>
+                        
+                        <div class="input-field"><input type="password" name="password" required></div>
+                        
+                        <a href="#" class="forgot-password">forgot password?</a>
+                        <button type="submit">Login</button>
+                    </form>
+                    <div class="button-link">
+                        <p>Dont have an account?</p>
+                        <a href="/register" id="signup-link">signup</a>
+                    </div>
+                </div>
+            </div>
+           </div>
+        </div>
 </body>
 </html>
