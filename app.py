@@ -118,7 +118,7 @@ GROUP BY
     crop_prediction.predicted_crop,
     crop_prediction.predicted_fertilizer
 ORDER BY
-    prediction_date DESC;
+    prediction_date ASC;
 
 """
     resultValue = cur.execute(query,(userID,))
@@ -221,14 +221,4 @@ def predict_fertilizer(soil_color_num, N, P, K, ph, rainfall, temp):
 # python main
 if __name__ == "__main__":
     app.run(debug=True)
-
-    #--------------------------------------------------git-------------------------------------------------------
-    # git branch:see branches
-    # git branch branch_name:create branch
-    # git checkout branch_name:switch to next branch
-    # git add.:add any changes to the branch
-    # git commit -m"messaage":commit changes
-    # git push origin branch_name:push to the branch origin
-    # git checkout next_branch_name:changes will not be seen
-
   
