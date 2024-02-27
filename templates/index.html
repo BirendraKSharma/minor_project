@@ -6,36 +6,49 @@
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="/static/styles.css">
     <link rel="stylesheet" href="/static/styled.css">
+    <!-- <script src="\static\script.js" defer></script> -->
+    <script src="https://kit.fontawesome.com/f2ae13f1ba.js" crossorigin="anonymous"></script>
 
     <title>crop recommendation</title>
+    <script>
+      document.addEventListener('DOMContentLoaded',()=>{
+        const contain=document.querySelector('.container');
+const checkbtn=document.querySelector('.checkbtn');
+let zIndexState='auto';
+checkbtn.addEventListener('click',()=>{
+    // const currentZIndex = parseInt(window.getComputedStyle(box).zIndex);
+    if (zIndexState==='auto'){
+        contain.style.zIndex='-1';
+        zIndexState='-1';
+        console.log('red');
+    }
+    else{
+        contain.style.zIndex='auto';
+        zIndexState='auto';
+    }
+    
+});
+      });
+     
+
+    </script>
 
   </head>
   <body>
-    <!-- <header>
-      <nav class="navigate">
-      <h2 class="logo">Crops Recommendation</h2>
 
-          <ul class="links">
-              <li><a href="/">home</a></li>
-              <li><a href="#">about</a></li>
-              <li><a href="#">contact</a></li>
-              
-          </ul>
-          <div class="form"><form action="/logout"><button class="login-btn">Logout</button></form></div>
-          </nav>
-  </header> -->
   <header>
     <nav>
         <input type="checkbox" id="check">
         <label for="check" class="checkbtn">
             <i class="fas fa-bars"></i>     
         </label>
-        <label class="logo">Crops Recommendation System</label>
+        <label class="logo logos">Crops Recommendation System</label>
         <ul>
             <li> <a href="/">home</a></li>
+            <li> <a href="#">about</a></li>
             <li> <a href="/dashboard">dashboard</a></li>
-            <!-- <li> <a href="#">about</a></li>
-            <li> <a href="#">contact</a></li> -->
+            <li> <a href="#">about</a></li>
+            <li> <a href="#">contact</a></li>
            <li><form action="/logout"><button class="logout">logout</button></form></li> 
             <!-- <button class="login-popup">Login</button> -->
         </ul>
@@ -133,6 +146,7 @@
   
         <button type="submit" name="action" class="crop_btn" value="crop">Get Crop Recommendation</button>
         <button type="submit" name="action" class="fertilizer_btn" value="fertilizer">Get Fertilizer Recommendation</button>
+      </form>
       </form>
 
       {% if crop_result %}
