@@ -42,13 +42,12 @@ checkbtn.addEventListener('click',()=>{
         <label for="check" class="checkbtn">
             <i class="fas fa-bars"></i>     
         </label>
-        <label class="logo logos">Crops Recommendation System</label>
+
         <ul>
-            <li> <a href="/">home</a></li>
-            <li> <a href="#">about</a></li>
+            <li> <a href="/homepage">home</a></li>
+  
             <li> <a href="/dashboard">dashboard</a></li>
-            <li> <a href="#">about</a></li>
-            <li> <a href="#">contact</a></li>
+
            <li><form action="/logout"><button class="logout">logout</button></form></li> 
             <!-- <button class="login-popup">Login</button> -->
         </ul>
@@ -143,9 +142,11 @@ checkbtn.addEventListener('click',()=>{
           <option value="Black">
           <option value="Light Brown">
         </datalist>
-  
-        <button type="submit" name="action" class="crop_btn" value="crop">Get Crop Recommendation</button>
-        <button type="submit" name="action" class="fertilizer_btn" value="fertilizer">Get Fertilizer Recommendation</button>
+        <div class="two_buttons">
+          <button type="submit" name="action" class="crop_btn" value="crop">Get Crop Recommendation</button>
+          <button type="submit" name="action" class="fertilizer_btn" value="fertilizer">Get Fertilizer Recommendation</button>
+        </div>
+
       </form>
       </form>
 
