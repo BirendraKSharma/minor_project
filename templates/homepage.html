@@ -1,47 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Crop & Fertilizer Recommendation System</title>
-</head>
-<body>
-    <header>
-        <nav>
-            <input type="checkbox" id="check">
-            <label for="check" class="checkbtn">
-                <i class="fas fa-bars"></i>     
-            </label>
-    
-            <ul>
-                <li> <a href="/login">login</a></li>
-      
-                <!-- <button class="login-popup">Login</button> -->
-            </ul>
-           
-        </nav>
-    </header>
-    <div class="container">
-        <section class="feature-section" id="crop-section">
-            <div class="feature-info">
-                <h2>Crop Recommendation</h2>
-                <p>Our advanced system analyzes soil conditions, and more to recommend the best-suited crops for your farm. Maximize your yield with our personalized suggestions.</p>
-            </div>
-            <div class="feature-image">
-                <img src="rows-young-corn-plants-on-600nw-278452958.webp" alt="Crop Recommendation Image">
-            </div>
-        </section>
+  </head>
+  <style>
+    body{
+        padding: 0;
+        margin: 0;
+        background-color: #e8e8e8;
+    }
+    .container_home {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
 
-        <section class="feature-section" id="fertilizer-section">
-            <div class="feature-info">
-                <h2>Fertilizer Recommendation</h2>
-                <p>Discover the perfect fertilizer match suitable for your soil. Our system considers soil nutrient levels to provide tailored fertilizer recommendations.</p>
-            </div>
-            <div class="feature-image">
-                <img src="gardener-blending-organic-fertiliser-humic-600nw-1364887628.webp" alt="Fertilizer Recommendation Image">
-            </div>
-        </section>
+    .feature-section {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 50px;
+    }
+
+    .feature-info {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .feature-info h2 {
+      color: #333;
+    }
+
+    .feature-info p {
+      color: #666;
+    }
+
+    .feature-image img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+  <body>
+    <header>
+      <nav>
+        <!-- <input type="checkbox" id="check" />
+        <label for="check" class="checkbtn">
+          <i class="fas fa-bars"></i>
+        </label> -->
+
+        <ul>
+          <li><a href="/login">login</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="container_home">
+      <section class="feature-section" id="crop-section">
+        <div class="feature-info">
+          <h2>Crop Recommendation</h2>
+          <p>
+            Our advanced system analyzes soil conditions, and more to recommend
+            the best-suited crops for your farm. Maximize your yield with our
+            personalized suggestions.
+          </p>
+        </div>
+        <div class="feature-image">
+          <img
+            src="static/rows-young-corn-plants-on-600nw-278452958.webp"
+            alt="Crop Recommendation Image"
+          />
+        </div>
+      </section>
+
+      <section class="feature-section" id="fertilizer-section">
+        <div class="feature-info">
+          <h2>Fertilizer Recommendation</h2>
+          <p>
+            Discover the perfect fertilizer match suitable for your soil. Our
+            system considers soil nutrient levels to provide tailored fertilizer
+            recommendations.
+          </p>
+        </div>
+        <div class="feature-image">
+          <img
+            src="static/gardener-blending-organic-fertiliser-humic-600nw-1364887628.webp"
+            alt="Fertilizer Recommendation Image"
+          />
+        </div>
+      </section>
     </div>
-</body>
+  </body>
 </html>
