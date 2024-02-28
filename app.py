@@ -26,6 +26,11 @@ app.config['MYSQL_DB'] = db['mysql_db']
 
 mysql = MySQL(app)
 
+#home page
+@app.route('/')
+@app.route('/homepage')
+def homepage():
+    return render_template('homepage.html')
 
 #login page
 @app.route('/')
