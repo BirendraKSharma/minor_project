@@ -6,56 +6,132 @@
     <title>Crop & Fertilizer Recommendation System</title>
   </head>
   <style>
-    body {
-      padding: 0;
+    * {
       margin: 0;
-      background-color: #e8e8e8;
+      padding: 0;
     }
-    .container_home {
-      max-width: 1200px;
-      margin: 20px auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    body {
+      min-height: 100vh;
+      background: url("crop.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
-
-    .feature-section {
+    nav {
+      background-color: white;
+      box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+    }
+    nav ul {
+      width: 100%;
+      list-style: none;
       display: flex;
-      flex-direction: row;
+      justify-content: flex-end;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 50px;
     }
-
-    .feature-info {
-      flex: 1;
-      padding: 20px;
+    nav li {
+      height: 50px;
     }
-
-    .feature-info h2 {
-      color: #333;
+    nav a {
+      height: 100%;
+      padding: 0 30px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      color: black;
     }
-
-    .feature-info p {
-      color: #666;
+    nav a:hover {
+      background-color: #f0f0f0;
     }
-
-    .feature-image img {
-      max-width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    nav li:first-child {
+      margin-right: auto;
+    }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: 250px;
+      background-color: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+      list-style: none;
+      display: none;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+    .sidebar li {
+      width: 100%;
+    }
+    .sidebar a {
+      width: 100%;
+    }
+    .menu-button {
+      display: none;
+    }
+    @media (max-width: 800px) {
+      .hideOnMobile {
+        display: none;
+      }
+      .menu-button {
+        display: block;
+      }
+    }
+    @media (max-width: 400px) {
+      .sidebar {
+        width: 100%;
+      }
     }
   </style>
+  <script>
+    function showSidebar() {
+      const sidebar = document.querySelector(".sidebar");
+      sidebar.style.display = "flex";
+    }
+    function hideSidebar() {
+      const sidebar = document.querySelector(".sidebar");
+      sidebar.style.display = "none";
+    }
+  </script>
   <body>
     <header>
       <nav>
-        <ul>
+        <ul class="sidebar">
+          <li onclick="hideSidebar()">
+            <a href="#"
+              ><svg
+                xmlns="burgerIcon1.svg"
+                height="26"
+                viewBox="0 96 960 960"
+                width="26"
+              >
+                <path
+                  d="m249 849-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"
+                /></svg
+            ></a>
+          </li>
           <li><a href="/homepage">Home</a></li>
-          <li><a href="/login">Log in</a></li>
+          <li><a href="/login">Login</a></li>
           <li><a href="#">About Us</a></li>
-          <li>
-            <form action="/logout"><button class="logout">logout</button></form>
+        </ul>
+        <ul>
+          <li><a href="#">Crop Recommendation System</a></li>
+          <li class="hideOnMobile"><a href="/homepage">Home</a></li>
+          <li class="hideOnMobile"><a href="/login">Login</a></li>
+          <li class="hideOnMobile"><a href="#">About</a></li>
+          <li class="menu-button" onclick="showSidebar()">
+            <a href="#"
+              ><svg
+                xmlns="burgerIcon.svg"
+                height="26"
+                viewBox="0 96 960 960"
+                width="26"
+              >
+                <path
+                  d="M120 816v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z"
+                /></svg
+            ></a>
           </li>
         </ul>
       </nav>

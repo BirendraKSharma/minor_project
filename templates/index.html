@@ -7,49 +7,133 @@
     <script src="https://kit.fontawesome.com/f2ae13f1ba.js" crossorigin="anonymous"></script>
 
     <title>crop recommendation</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      nav {
+        background-color: rgb(180, 171, 171);
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+      }
+      nav ul {
+        width: 100%;
+        list-style: none;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+      nav li {
+        height: 50px;
+      }
+      nav a {
+        height: 100%;
+        padding: 0 30px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        color: black;
+      }
+      nav a:hover {
+        background-color: #f0f0f0;
+      }
+      nav li:first-child {
+        margin-right: auto;
+      }
+      .sidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 250px;
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(12px);
+        box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+        list-style: none;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+      .sidebar li {
+        width: 100%;
+      }
+      .sidebar a {
+        width: 100%;
+      }
+      .menu-button {
+        display: none;
+      }
+      @media (max-width: 800px) {
+        .hideOnMobile {
+          display: none;
+        }
+        .menu-button {
+          display: block;
+        }
+      }
+      @media (max-width: 400px) {
+        .sidebar {
+          width: 100%;
+        }
+      }
+    </style>
     <script>
-      document.addEventListener('DOMContentLoaded',()=>{
-        const contain=document.querySelector('.container');
-const checkbtn=document.querySelector('.checkbtn');
-let zIndexState='auto';
-checkbtn.addEventListener('click',()=>{
-    // const currentZIndex = parseInt(window.getComputedStyle(box).zIndex);
-    if (zIndexState==='auto'){
-        contain.style.zIndex='-1';
-        zIndexState='-1';
-        console.log('red');
-    }
-    else{
-        contain.style.zIndex='auto';
-        zIndexState='auto';
-    }
-    
-});
-      });
-     
-
+      function showSidebar() {
+        const sidebar = document.querySelector(".sidebar");
+        sidebar.style.display = "flex";
+      }
+      function hideSidebar() {
+        const sidebar = document.querySelector(".sidebar");
+        sidebar.style.display = "none";
+      }
     </script>
 
   </head>
-  <body>
-
   <header>
     <nav>
-        <input type="checkbox" id="check">
-        <label for="check" class="checkbtn">
-            <i class="fas fa-bars"></i>     
-        </label>
-
-        <ul>
-            <li> <a href="/homepage">Home</a></li>
-  
-            <li> <a href="/dashboard">Dashboard</a></li>
-
-           <li><form action="/logout"><button class="logout">Log out</button></form></li> 
-        </ul>
-       
+      <ul class="sidebar">
+        <li onclick="hideSidebar()">
+          <a href="#"
+            ><svg
+              xmlns="burgerIcon1.svg"
+              height="26"
+              viewBox="0 96 960 960"
+              width="26"
+            >
+              <path
+                d="m249 849-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"
+              /></svg
+          ></a>
+        </li>
+        <li><a href="/homepage">Home</a></li>
+        <li><a href="/logout">Logout</a></li>
+        <li><a href="/Dashboard">Dashboard</a></li>
+        <li><a href="#">About Us</a></li>
+      </ul>
+      <ul>
+        <li><a href="#">Crop Recommendation System</a></li>
+        <li class="hideOnMobile"><a href="/homepage">Home</a></li>
+        <li class="hideOnMobile"><a href="/logout">Logout</a></li>
+        <li class="hideOnMobile"><a href="/dashboard">Dashboard</a></li>
+        <li class="hideOnMobile"><a href="#">About</a></li>
+        <li class="menu-button" onclick="showSidebar()">
+          <a href="#"
+            ><svg
+              xmlns="burgerIcon.svg"
+              height="26"
+              viewBox="0 96 960 960"
+              width="26"
+            >
+              <path
+                d="M120 816v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z"
+              /></svg
+          ></a>
+        </li>
+      </ul>
     </nav>
  </header>
+  <body>
     <div class="container">
       <h1>Crop Recommendation</h1>
       <form action="/predict" method="POST">
