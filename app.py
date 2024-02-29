@@ -40,6 +40,7 @@ def homepage():
 def redirect_1():
     return render_template('index.html')
 
+
 #login page
 @app.route('/')
 @app.route('/login',methods=['GET','POST'])
