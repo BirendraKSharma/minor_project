@@ -6,7 +6,6 @@ import pickle
 import pandas as pd
 from flask_bcrypt import Bcrypt
 import MySQLdb.cursors
-# this is my world
 
 # importing model
 model = pickle.load(open('crop.pickle','rb'))   #for crop prediction
@@ -170,7 +169,6 @@ ORDER BY
 
 
 #fetching data from the page and predicting the crop
-
 @app.route("/predict",methods=['POST'])
 def predict():
     N = request.form['Nitrogen']
