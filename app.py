@@ -3,9 +3,13 @@ from flask_mysqldb import MySQL
 import yaml
 import numpy as np
 import pickle
-import pandas as pd
 from flask_bcrypt import Bcrypt
 import MySQLdb.cursors
+#for ignoring warning
+import warnings
+
+# Suppress all warnings
+warnings.filterwarnings("ignore")
 
 # importing model
 model = pickle.load(open('crop.pickle','rb'))   #for crop prediction
