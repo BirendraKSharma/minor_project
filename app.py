@@ -35,6 +35,11 @@ mysql = MySQL(app)
 def homepage():
     return render_template('homepage.html')
 
+#ger recommend page
+@app.route('/index')
+def redirect_1():
+    return render_template('index.html')
+
 #login page
 @app.route('/')
 @app.route('/login',methods=['GET','POST'])
