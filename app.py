@@ -1,4 +1,4 @@
-from flask import Flask,request,render_template,redirect,session
+from flask import Flask,request,render_template,url_for,redirect,session
 from flask_mysqldb import MySQL
 import yaml
 import numpy as np
@@ -45,6 +45,8 @@ def redirect_1():
 @app.route('/')
 @app.route('/login',methods=['GET','POST'])
 def login():
+    if 'Loggedin' in session and session['Loggedin']:
+        return redirect(url_for('redirect_1'))
     message = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
@@ -70,7 +72,7 @@ def logout():
     session.pop('Loggedin',None)
     session.pop('userID',None)
     session.pop('username',None)
-    return redirect('/login')
+    return redirect('/homepage')
 
 #forget password
 @app.route('/forget_password' , methods=['GET' ,'POST'])

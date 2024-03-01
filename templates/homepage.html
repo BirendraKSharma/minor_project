@@ -25,6 +25,8 @@
       }
       .container_home {
         padding-top: 60px;
+        background: url("static/crop.jpg") center/cover no-repeat fixed;
+        backdrop-filter: blur(5px); /* Apply blur effect to the background */
       }
       nav ul {
         width: 100%;
@@ -96,6 +98,8 @@
       .feature-info {
         flex: 1;
         padding: 0 20px;
+        font-size: large;
+        color: aliceblue;
       }
       .feature-image {
         flex: 1;
@@ -136,13 +140,13 @@
             </a>
           </li>
           <li><a href="/homepage">Home</a></li>
-          <li><a href="/login">Login</a></li>
+          <li><a href="/login">Get Recommend</a></li>
           <li><a href="#">About Us</a></li>
         </ul>
         <ul>
           <li><a href="#">Crop Recommendation System</a></li>
           <li class="hideOnMobile"><a href="/homepage">Home</a></li>
-          <li class="hideOnMobile"><a href="/login">Login</a></li>
+          <li class="hideOnMobile"><a href="/login">Get Recommend</a></li>
           <li class="hideOnMobile"><a href="#">About</a></li>
           <li class="menu-button" onclick="showSidebar()">
             <a href="#">
@@ -163,7 +167,7 @@
     </header>
     <div class="container_home">
       <section class="feature-section" id="crop-section">
-        <div class="feature-info" style="color: #f0f0f0;">
+        <div class="feature-info">
           <h2>Crop Recommendation</h2>
           <p>
             Our advanced system analyzes soil conditions, and more to recommend

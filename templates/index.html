@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/style1.css">
     <script src="https://kit.fontawesome.com/f2ae13f1ba.js" crossorigin="anonymous"></script>
 
     <title>crop recommendation</title>
@@ -82,6 +82,7 @@
       function showSidebar() {
         const sidebar = document.querySelector(".sidebar");
         sidebar.style.display = "flex";
+        sidebar.style.zIndex = "999"; 
       }
       function hideSidebar() {
         const sidebar = document.querySelector(".sidebar");
@@ -233,14 +234,14 @@
       {% if crop_result %}
       <div class="output">
         <h5>Recommend Crop for cultivation is:</h5>
-        <p>{{ crop_result }}</p>
+        <p><i><b>{{ crop_result }}</b></i></p>
       </div>
       {% endif %}
 
       {% if fertilizer_result %}
       <div class="output">
-        <h5>Recommend fertilizer for cultivation is:</h5>
-        <p>{{ fertilizer_result }}</p>
+        <h5>Recommended Fertilizer to fulfil deficiency:</h5>
+        <p><i><b>{{ fertilizer_result }}</b></i></p>
       </div>
       {% endif %}
 
