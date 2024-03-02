@@ -176,8 +176,10 @@ ORDER BY
     resultValue = cur.execute(query,(userID,))
     if resultValue > 0:
         userDetails = cur.fetchall()
-        return render_template('dashboard.html',userDetails=userDetails)
-
+        return render_template('dashboard.html',userDetails=userDetails,message=None)
+    else:
+        message = "No history available for the user."
+        return render_template('dashboard.html', userDetails=None, message=message)
 
 
 #fetching data from the page and predicting the crop

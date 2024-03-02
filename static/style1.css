@@ -108,6 +108,12 @@
           margin-left: 38%;
           width: 200px;
         }
+        .crop_btn{
+          width:153px;
+        }
+        .fertilizer_btn{
+          width:153px;
+        }
         .logos {
           display: none;
         }
