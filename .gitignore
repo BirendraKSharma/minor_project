@@ -7,6 +7,7 @@ __pycache__/
 .vscode/
 test.py
 myenv/
+screenshots/
 
 db.yaml
 # C extensions
