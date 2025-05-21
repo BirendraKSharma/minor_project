@@ -7,11 +7,13 @@ A web application that leverages machine learning to provide personalized recomm
 - **Crop Recommendation:** Suggests the most suitable crops for your farmland by analyzing soil nutrient composition.
 - **Fertilizer Recommendation:** Recommends effective fertilizers tailored to your soil’s nutrient levels.
 - **User Dashboard:** View prediction history and manage your recommendations.
-- **Simple Web Interface:** User-friendly forms for data input and clear output results.
 
 ## Demo
 
-*Add screenshots or a link to a live demo here if available.*
+![App Screenshot](screenshots/crop_interface&result.png)
+![App Screenshot](screenshots/fertilizer_interface&result.png)
+
+*Add more screenshots or a link to a live demo here if available.*
 
 ## Getting Started
 
@@ -87,7 +89,3 @@ Contributions are welcome! Please open an issue or submit a pull request.
 ## Contact
 
 For questions or feedback, open an issue on this repository or contact the maintainer: [BirendraKSharma](https://github.com/BirendraKSharma)
-
----
-
-*This README was auto-generated. Please update sections like “Demo” and “License” as needed for your project.*
